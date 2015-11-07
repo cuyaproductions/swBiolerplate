@@ -11,10 +11,10 @@ module.exports = function (grunt) {
                 pretty: true
             },
             files: {
-                expand: true,     // Enable dynamic expansion.
-                cwd: '<%= source.dir %>/',      // Src matches are relative to this path.
-                src: ['*.jade'], // Actual pattern(s) to match.
-                dest: '<%= build.dir %>/',   // Destination path prefix.
+                expand: true,
+                cwd: '<%= source.dir %>/',
+                src: ['*.jade'],
+                dest: '<%= build.dir %>/',
                 ext: '.html'
             }
         },
@@ -25,10 +25,10 @@ module.exports = function (grunt) {
                 loadPath: require('node-bourbon').includePaths
             },
             files: {
-                expand: true,     // Enable dynamic expansion.
-                cwd: '<%= source.dir %>/style',      // Src matches are relative to this path.
-                src: ['*.sass', '**/*.sass'], // Actual pattern(s) to match.
-                dest: '<%= build.dir %>/style',   // Destination path prefix.
+                expand: true,
+                cwd: '<%= source.dir %>/style',
+                src: ['*.sass', '**/*.sass'],
+                dest: '<%= build.dir %>/style',
                 ext: '.css'
             }
         },
@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                 livereload: true
             },
             html: {
-                files: ['<%= source.dir %>/*.jade'],
+                files: ['<%= source.dir %>/*.jade', '<%= source.dir %>/**/*.jade'],
                 tasks: ['jade']
             },
             css: {
