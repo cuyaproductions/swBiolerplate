@@ -4,7 +4,7 @@
     "description": "Boilerplate for creating landing page projects in the Spiceworks Community using Jade and Sass",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cuyaproductions/swBiolerplate.git"
+        "url": "https://github.com/cuyaproductions/swBoilerplate.git"
     },
     "dependencies": {},
     "devDependencies": {
