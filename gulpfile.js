@@ -1,9 +1,10 @@
 var gulp = require('gulp'),
-  sass = require('gulp-sass'),
   prefix = require('gulp-autoprefixer'),
-  jade = require('gulp-jade'),
+  babel = require('gulp-babel'),
   connect = require('gulp-connect'),
-  babel = require('gulp-babel');
+  jade = require('gulp-jade'),
+  sass = require('gulp-sass'),
+  svgmin = require('gulp-svgmin');
 
 
 var config = {
@@ -15,6 +16,8 @@ gulp.task('watch', function() {
   gulp.watch(['./' + config.src + '/*'],['jade']);
   gulp.watch(['./' + config.src + '/style/*.s?(a|c)ss'],['sass']);
   gulp.watch(['./' + config.src + '/script/*.js'],['babel']);
+  gulp.watch(['./' + config.src + '/imgs/!(*.svg)'],['imgs']);
+  gulp.watch(['./' + config.src + '/imgs/*.svg'],['svg']);
 });
 
 
@@ -25,6 +28,27 @@ gulp.task('babel', function(){
     .pipe(connect.reload());
 });
 
+gulp.task('imgs', function(){
+  gulp.src(config.src + '/imgs/!(*.svg)')
+    .pipe(gulp.dest(config.build + '/imgs/'))
+    .pipe(connect.reload());
+})
+
+gulp.task('svg', function(){
+  gulp.src(config.src + '/imgs/*.svg')
+    .pipe(svgmin({
+      removeComments: true,
+      cleanupNumbericValues: {
+        floatPrecision: 1
+      },
+      convertColors: {
+        names2hex: true,
+        rgb2hex: true
+      }
+    }))
+    .pipe(gulp.dest(config.build + '/imgs/'))
+    .pipe(connect.reload());
+})
 
 gulp.task('sass', function() {
   gulp.src(config.src + '/style/*.s?(a|c)ss')
@@ -41,7 +65,9 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
   gulp.src(config.src + '/*.jade')
-    .pipe(jade())
+    .pipe(jade({
+      pretty: true
+    }))
     .pipe(gulp.dest(config.build))
     .pipe(connect.reload());
 });
